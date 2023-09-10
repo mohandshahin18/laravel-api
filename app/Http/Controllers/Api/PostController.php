@@ -14,9 +14,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        return[
+        return [
             'status' => true,
-            'message' =>' Done',
+            'message' => ' Done',
             'data' => $this->getPosts(),
         ];
     }
@@ -26,7 +26,19 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            return [
+                'status' => true,
+                'message' => ' Done',
+                'data' => $this->storeData($request->all()),
+            ];
+        } catch (\Exception $e) {
+            return [
+                'status' => false,
+                'message' => 'Reject',
+                'data' => $e->getMessage(),
+            ];
+        }
     }
 
     /**
@@ -42,7 +54,19 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            return [
+                'status' => true,
+                'message' => ' Done',
+                'data' => $this->updatePost($request,$id),
+            ];
+        } catch (\Exception $e) {
+            return [
+                'status' => false,
+                'message' => 'Reject',
+                'data' => $e->getMessage(),
+            ];
+        }
     }
 
     /**
@@ -50,6 +74,18 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            return [
+                'status' => true,
+                'message' => ' Done',
+                'data' => [],
+            ];
+        } catch (\Exception $e) {
+            return [
+                'status' => false,
+                'message' => 'Reject',
+                'data' => $e->getMessage(),
+            ];
+        }
     }
 }

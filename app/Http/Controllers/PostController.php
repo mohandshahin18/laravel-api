@@ -28,7 +28,7 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         try {
-            Post::create($request->all());
+            $this->storeData($request->all());
             return redirect()->back()->with('success', 'Data saved successfully');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
@@ -53,9 +53,7 @@ class PostController extends Controller
     {
 
         try {
-            $post = Post::findorFail($id);
-
-            $post->update($request->all());
+            $this->updatePost($request,$id);
 
             return redirect()->back()->with('edit', 'Data Updated successfully');
 
@@ -71,7 +69,7 @@ class PostController extends Controller
     {
         try {
 
-            Post::destroy($id);
+            $this->deletePost($id);
             return redirect()->back()->with('delete', 'Data has been deleted successfully');
 
         } catch (\Exception $e) {
