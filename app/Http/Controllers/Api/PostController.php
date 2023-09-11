@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Traits\PostTrait;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePostRequest;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -14,6 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
+        // dd(Auth::id());
         return [
             'status' => true,
             'message' => ' Done',
@@ -24,7 +27,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePostRequest  $request)
     {
         try {
             return [
@@ -46,13 +49,25 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            return [
+                'status' => true,
+                'message' => ' Done',
+                'data' => $this->showPost($id),
+            ];
+        } catch (\Exception $e) {
+            return [
+                'status' => false,
+                'message' => 'Reject',
+                'data' => $e->getMessage(),
+            ];
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StorePostRequest $request, string $id)
     {
         try {
             return [

@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 
 trait PostTrait
@@ -24,6 +25,16 @@ trait PostTrait
         return Post::create($request);
     }
 
+
+
+    /**
+     * show the specified resource in storage.
+     */
+    public function showPost($id)
+    {
+        $post = new PostResource(Post::findorFail($id));
+        return $post;
+    }
 
 
     /**
